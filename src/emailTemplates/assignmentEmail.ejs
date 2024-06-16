@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam Center Assignment</title>
+</head>
+<body>
+    <h1>Exam Center Assignment</h1>
+    <p>Dear <%= userName %>,</p>
+    <p>You have been assigned to the following exam center:</p>
+    <ul>
+        <li><strong>Name:</strong> <%= examCenter.name %></li>
+        <li><strong>Address:</strong> <%= examCenter.address %></li>
+        <li><strong>City:</strong> <%= examCenter.city %></li>
+        <li><strong>State:</strong> <%= examCenter.state %></li>
+        <li><strong>Date and Time:</strong> <%= examCenter.dateTime %></li>
+        <li>
+            <strong>Location:</strong> 
+            <a href="https://www.google.com/maps/search/?api=1&query=<%= examCenter.latitude %>,<%= examCenter.longitude %>">
+                View on Map
+            </a>
+        </li>
+    </ul>
+    <p>Best regards,</p>
+    <p>Your Examination Team</p>
+</body>
+</html>
