@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-   "start": "node src/index.ts",
+    "start": "node src/index.ts",
     "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts",
     "build": "tsc",
     "serve": "node dist/index.ts",
@@ -15,6 +15,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "argon2": "^0.40.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
