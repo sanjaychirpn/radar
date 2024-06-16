@@ -17,7 +17,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URL: string = process.env.MONGODB_URL || 'mongodb+srv://ssingh1:n94VZu0N2bXpLUCZ@cluster0.cc9ztjt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URL: string = `mongodb+srv://ssingh1:n94VZu0N2bXpLUCZ@cluster0.cc9ztjt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
