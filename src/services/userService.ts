@@ -131,5 +131,9 @@ export class UserService {
     // }
     return updatedUser;
   }
+    updateFCMFields = async (id: string, fields: { FCMToken: string; FCMId: string }) => {
+    const updatedUser = await this.userRepository.updateById(id, fields);
+    return updatedUser;
+  };
 
 }
