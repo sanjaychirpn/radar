@@ -7,7 +7,7 @@ import { IUserRole } from '../models/userRoleModel';
 
 @Service()
 export class UserRoleService {
-  constructor(@Inject() private userRoleRepository: UserRoleRepository) {}
+  constructor(@Inject() private userRoleRepository: UserRoleRepository) { }
 
   save = async (req: Request, res: Response) => {
     try {
@@ -51,4 +51,30 @@ export class UserRoleService {
       return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
     }
   };
+  getUserRoleById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const data = await this.userRoleRepository.findByid(id);
+      if (!data) {
+        return responseStatus(res, 404, msg.userRole.userRoleNotFound, null);
+      }
+      return responseStatus(res, 200, msg.userRole.userRoleDeletedSuccess, data);
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
+  getUserRoles = async (req: Request, res: Response) => {
+    try {
+      const data = await this.userRoleRepository.findAll();
+      if (!data) {
+        return responseStatus(res, 404, msg.userRole.userRoleNotFound, null);
+      }
+      return responseStatus(res, 200, msg.userRole.userRoleFound, data);
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
+
 }

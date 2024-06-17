@@ -10,4 +10,7 @@ router.post('/create', [checkJWT, checkAdmin], userRoleController.createUserRole
 router.patch('/update/:id', [checkJWT, checkAdmin], userRoleController.updateUserRole);
 router.delete('/delete/:id', [checkJWT, checkAdmin], userRoleController.deleteUserRole);
 
+router.get('/', (req, res) => userRoleController.getUserRoles(req, res));
+router.get('/:id', (req, res) => userRoleController.getUserRoleById(req, res));
+
 export { router as UserRoleRoutes };

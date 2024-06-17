@@ -31,4 +31,20 @@ export class UserRoleController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
+
+  getUserRoles = async (req: Request, res: Response) => {
+    try {
+      return await this.userRoleService.getUserRoles(req, res);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
+
+  getUserRoleById = async (req: Request, res: Response) => {
+    try {
+      return await this.userRoleService.getUserRoleById(req, res);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
 }

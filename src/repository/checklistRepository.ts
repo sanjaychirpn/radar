@@ -39,4 +39,9 @@ export class ChecklistRepository {
   async findById(_id: string): Promise<IChecklist | null> {
     return ChecklistModel.findById(_id).exec();
   }
+
+  async findAll(): Promise<IChecklist[]> {
+    return ChecklistModel.find()
+
+  }
 }

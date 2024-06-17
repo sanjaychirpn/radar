@@ -14,4 +14,13 @@ export class UserRoleRepository {
   async deleteById(_id: string): Promise<IUserRole | null> {
     return UserRoleModel.findByIdAndDelete(_id).exec();
   }
+
+  async findAll(): Promise<IUserRole[]> {
+    return UserRoleModel.find()
+
+  }
+  async findByid(_id: string): Promise<IUserRole | null> {
+    return UserRoleModel.findById(_id).exec();
+  }
+
 }

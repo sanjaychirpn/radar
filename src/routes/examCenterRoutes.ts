@@ -12,4 +12,6 @@ router.patch('/:id', [checkJWT, checkAdmin], (req, res) => examCenterController.
 router.delete('/:id', [checkJWT, checkAdmin], (req, res) => examCenterController.deleteExamCenter(req, res));
 router.post('/assign', [checkJWT, checkAdmin], (req, res) => examCenterController.assignUsersToExamCenter(req, res));
 
+router.get('/', (req, res) => examCenterController.getAllExamCenters(req, res));
+
 export { router as ExamCenterRoutes };

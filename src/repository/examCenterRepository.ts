@@ -20,6 +20,12 @@ export class ExamCenterRepository {
     return ExamCenterModel.findById(new Types.ObjectId(_id)).exec();
   }
 
+  async findAll(): Promise<IExamCenter[]> {
+    return ExamCenterModel.find()
+
+  }
+  
+
   async deleteById(_id: string): Promise<IExamCenter | null> {
     try {
       const deletedExamCenter = await ExamCenterModel.findByIdAndDelete(new Types.ObjectId(_id)).exec();

@@ -32,4 +32,11 @@ export class UserRepository {
   async deleteById(_id: string): Promise<IUser | null> {
     return UserModel.findByIdAndDelete(_id).exec();
   }
+  async findAll(): Promise<IUser[]> {
+    return UserModel.find()
+      .populate('role')
+      .populate('examCenter')
+      .populate('employeeType')
+      .exec();
+  }
 }

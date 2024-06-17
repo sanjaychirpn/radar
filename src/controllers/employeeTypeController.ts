@@ -31,4 +31,20 @@ export class EmployeeTypeController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
+
+  getEmployeeTypes= async (req: Request, res: Response) => {
+    try {
+      return await this.employeeTypeService.getEmployeeTypes(req, res);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
+
+  getEmployeeTypeById= async (req: Request, res: Response) => {
+    try {
+      return await this.employeeTypeService.getEmployeeTypeById(req, res);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
 }

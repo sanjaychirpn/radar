@@ -7,7 +7,7 @@ import { IEmployeeType } from '../models/employeeTypeModel';
 
 @Service()
 export class EmployeeTypeService {
-  constructor(@Inject() private employeeTypeRepository: EmployeeTypeRepository) {}
+  constructor(@Inject() private employeeTypeRepository: EmployeeTypeRepository) { }
 
   save = async (req: Request, res: Response) => {
     try {
@@ -46,6 +46,34 @@ export class EmployeeTypeService {
         return responseStatus(res, 404, msg.employeeType.employeeTypeNotFound, null);
       }
       return responseStatus(res, 200, msg.employeeType.employeeTypeDeletedSuccess, {});
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
+
+  getEmployeeTypes = async (req: Request, res: Response) => {
+    try {
+
+      const data = await this.employeeTypeRepository.findAll()
+      if (!data) {
+        return responseStatus(res, 404, msg.employeeType.employeeTypeNotFound, null);
+      }
+      return responseStatus(res, 200, msg.employeeType.employeeTypeFound, data);
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
+
+  getEmployeeTypeById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const data = await this.employeeTypeRepository.findByid(id);
+      if (!data) {
+        return responseStatus(res, 404, msg.employeeType.employeeTypeNotFound, null);
+      }
+      return responseStatus(res, 200, msg.employeeType.employeeTypeDeletedSuccess, data);
     } catch (error) {
       console.error(error);
       return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');

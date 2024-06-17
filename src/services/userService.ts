@@ -97,6 +97,19 @@ export class UserService {
     }
   };
 
+  getAllUsers = async (req: Request, res: Response) => {
+    try {
+      const users = await this.userRepository.findAll();
+      if (!users) {
+        return responseStatus(res, 404, msg.user.userNotFound, null);
+      }
+      return responseStatus(res, 200, msg.user.userFoundSuccess, users);
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
+
   delete = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
@@ -131,7 +144,7 @@ export class UserService {
     // }
     return updatedUser;
   }
-    updateFCMFields = async (id: string, fields: { FCMToken: string; FCMId: string }) => {
+  updateFCMFields = async (id: string, fields: { FCMToken: string; FCMId: string }) => {
     const updatedUser = await this.userRepository.updateById(id, fields);
     return updatedUser;
   };

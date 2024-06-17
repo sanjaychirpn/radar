@@ -6,7 +6,7 @@ import { msg } from '../helper/messages';
 
 @Service()
 export class ExamCenterController {
-  constructor(@Inject() private examCenterService: ExamCenterService) {}
+  constructor(@Inject() private examCenterService: ExamCenterService) { }
 
   saveExamCenter = async (req: Request, res: Response) => {
     try {
@@ -52,4 +52,14 @@ export class ExamCenterController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
+
+  getAllExamCenters = async (req: Request, res: Response) => {
+    try {
+      const result = await this.examCenterService.getAllExamCenters(req, res);
+      return result;
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
+
 }

@@ -85,4 +85,17 @@ export class ExamCenterService {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
+
+  getAllExamCenters = async (req: Request, res: Response) => {
+    try {
+      const examCenter = await this.examCenterRepository.findAll();
+      if (!examCenter) {
+        return responseStatus(res, 404, msg.examCenter.examCenterNotFound, null);
+      }
+      return responseStatus(res, 200, msg.examCenter.examCenterFoundSuccess, examCenter);
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
 }

@@ -12,6 +12,7 @@ export const msg = {
     phoneNumberRequired: 'Phone number is required.',
     userSavedSuccess: 'User registered successfully.',
     userNotFound: 'User not found.',
+    userFound: 'User not found.',
     invalidCredentials: 'Invalid credentials.',
     loggedInSuccess: 'User logged in successfully.',
     userUpdatedSuccess: 'User updated successfully.',
@@ -52,6 +53,7 @@ export const msg = {
     userRoleUpdatedSuccess: 'User role updated successfully.',
     userRoleDeletedSuccess: 'User role deleted successfully.',
     userRoleNotFound: 'User role not found.',
+    userRoleFound: 'User role found.'
   },
   employeeType: {
     employeeTypeSavedSuccess: 'Employee type saved successfully.',
@@ -59,6 +61,7 @@ export const msg = {
     employeeTypeUpdatedSuccess: 'Employee type updated successfully.',
     employeeTypeDeletedSuccess: 'Employee type deleted successfully.',
     employeeTypeNotFound: 'Employee type not found.',
+    employeeTypeFound:'Employee type found.',
   },
   checklist: {
     checklistNotFound: 'Checklist not found.',

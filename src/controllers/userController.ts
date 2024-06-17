@@ -38,6 +38,13 @@ export class UserController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
+  getAllUsers= async (req: Request, res: Response) => {
+    try {
+      return await this.userService.getAllUsers(req, res);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
   
 
   deleteUser = async (req: Request, res: Response) => {

@@ -18,4 +18,13 @@ export class AdminRepository {
   async deleteById(_id: string): Promise<IAdmin | null> {
     return AdminModel.findByIdAndDelete(_id).exec();
   }
+
+  
+  async findAll(): Promise<IAdmin[]> {
+    return AdminModel.find()
+
+  }
+  async findByid(_id: string): Promise<IAdmin | null> {
+    return AdminModel.findById(_id).exec();
+  }
 }

@@ -10,4 +10,7 @@ router.post('/create', [checkJWT, checkAdmin], employeeTypeController.createEmpl
 router.patch('/update/:id', [checkJWT, checkAdmin], employeeTypeController.updateEmployeeType);
 router.delete('/delete/:id', [checkJWT, checkAdmin], employeeTypeController.deleteEmployeeType);
 
+router.get('/', (req, res) => employeeTypeController.getEmployeeTypes(req, res));
+router.get('/:id', (req, res) => employeeTypeController.getEmployeeTypeById(req, res));
+
 export { router as EmployeeTypeRoutes };

@@ -14,4 +14,12 @@ export class EmployeeTypeRepository {
   async deleteById(_id: string): Promise<IEmployeeType | null> {
     return EmployeeTypeModel.findByIdAndDelete(_id).exec();
   }
+ 
+  async findAll(): Promise<IEmployeeType[]> {
+    return EmployeeTypeModel.find()
+
+  }
+  async findByid(_id: string): Promise<IEmployeeType | null> {
+    return EmployeeTypeModel.findById(_id).exec();
+  }
 }

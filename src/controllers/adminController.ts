@@ -6,7 +6,7 @@ import { msg } from '../helper/messages';
 
 @Service()
 export class AdminController {
-  constructor(@Inject() private adminService: AdminService) {}
+  constructor(@Inject() private adminService: AdminService) { }
 
   registerAdmin = async (req: Request, res: Response) => {
     try {
@@ -35,6 +35,21 @@ export class AdminController {
   deleteAdmin = async (req: Request, res: Response) => {
     try {
       return await this.adminService.delete(req, res);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
+  getAllUsers = async (req: Request, res: Response) => {
+    try {
+      return await this.adminService.getAllUsers(req, res);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
+
+  getUserById = async (req: Request, res: Response) => {
+    try {
+      return await this.adminService.getUserById(req, res);
     } catch (error) {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }

@@ -13,4 +13,7 @@ router.delete('/:id', [checkJWT, checkAdmin], userController.deleteUser);
 router.get('/:id', checkJWT, userController.findUserById);
 router.patch('/update/:id', [checkJWT], userController.updateUserFCM);
 
+router.get('/', (req, res) => userController.getAllUsers(req, res));
+router.get('/:id', checkJWT, (req, res) => userController.findUserById(req, res));
+
 export { router as UserRoutes };

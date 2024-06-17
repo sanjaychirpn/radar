@@ -10,7 +10,7 @@ import { jwtSignIN } from '../configuration/config';
 
 @Service()
 export class AdminService {
-  constructor(@Inject() private adminRepository: AdminRepository) {}
+  constructor(@Inject() private adminRepository: AdminRepository) { }
 
   save = async (req: Request, res: Response) => {
     try {
@@ -32,7 +32,7 @@ export class AdminService {
         return responseStatus(res, 500, msg.user.errorInSaving, null);
       }
 
-       const token = jwt.sign({ userId: newAdmin._id, role: newAdmin.role }, jwtSignIN.secret);
+      const token = jwt.sign({ userId: newAdmin._id, role: newAdmin.role }, jwtSignIN.secret);
       return responseStatus(res, 200, msg.user.userSavedSuccess, { token, admin: newAdmin });
     } catch (error) {
       console.error(error);
@@ -51,7 +51,7 @@ export class AdminService {
       if (!passwordMatch) {
         return responseStatus(res, 401, msg.user.invalidCredentials, null);
       }
-       const token = jwt.sign({ userId: admin._id, role: admin.role }, jwtSignIN.secret);
+      const token = jwt.sign({ userId: admin._id, role: admin.role }, jwtSignIN.secret);
       return responseStatus(res, 200, msg.user.loggedInSuccess, { token, admin });
     } catch (error) {
       console.error(error);
@@ -82,6 +82,33 @@ export class AdminService {
         return responseStatus(res, 404, msg.user.userNotFound, null);
       }
       return responseStatus(res, 200, msg.user.userDeletedSuccess, {});
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
+
+  getAllUsers = async (req: Request, res: Response) => {
+    try {
+      const data = await this.adminRepository.findAll();
+      if (!data) {
+        return responseStatus(res, 404, msg.user.userNotFound, null);
+      }
+      return responseStatus(res, 200, msg.user.userFound, data);
+    } catch (error) {
+      console.error(error);
+      return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
+    }
+  };
+
+  getUserById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const data = await this.adminRepository.findByid(id);
+      if (!data) {
+        return responseStatus(res, 404, msg.user.userNotFound, null);
+      }
+      return responseStatus(res, 200, msg.user.userFound, data);
     } catch (error) {
       console.error(error);
       return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
