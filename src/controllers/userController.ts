@@ -54,5 +54,18 @@ export class UserController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
+    updateUserFCM = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { FCMToken, FCMId } = req.body;
+      const updatedUser = await this.userService.updateFCMFields(id, { FCMToken, FCMId });
+      if (!updatedUser) {
+        return responseStatus(res, 404, msg.user.userNotFound, null);
+      }
+      return responseStatus(res, 200, msg.user.userUpdatedSuccess, updatedUser);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
  
 }
