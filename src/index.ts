@@ -12,6 +12,7 @@ import { UserRoleRoutes } from './routes/userRoleRoutes';
 import { EmployeeTypeRoutes } from './routes/employeeTypeRoutes';
 import { ChecklistRoutes } from './routes/checklistRoutes';
 import { EventEmitter } from 'events';
+import uploadRoutes from './routes/uploadRoutes';
 EventEmitter.defaultMaxListeners = 20;
 dotenv.config();
 
@@ -32,6 +33,8 @@ const startServer = async () => {
     app.use('/api/user-role', UserRoleRoutes);
     app.use('/api/employee-type', EmployeeTypeRoutes);
     app.use('/api/checklist', ChecklistRoutes);
+    app.use('/api', uploadRoutes);
+
 
     app.get('/health', (req: Request, res: Response) => {
         res.send('server is up');
