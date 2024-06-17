@@ -22,7 +22,13 @@ const MONGODB_URL: string = `mongodb+srv://ssingh1:n94VZu0N2bXpLUCZ@cluster0.cc9
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
-app.use(cors({}));
+const corsOptions = {
+    origin: ['http://localhost:3000', 'https://radar-sdk.vercel.app'], // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Enable cookies to be sent across domains
+  };
+  app.use(cors(corsOptions));
 
 const startServer = async () => {
     await connectToDb(MONGODB_URL);
