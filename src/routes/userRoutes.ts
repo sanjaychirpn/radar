@@ -11,5 +11,6 @@ router.post('/login', (req, res) => userController.loginUser(req, res));
 router.patch('/:id', [checkJWT, checkAdmin], userController.updateUser);
 router.delete('/:id', [checkJWT, checkAdmin], userController.deleteUser);
 router.get('/:id', checkJWT, userController.findUserById);
+router.patch('update/:id', [checkJWT], userController.updateUserFCM);
 
 export { router as UserRoutes };
