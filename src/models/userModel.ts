@@ -6,7 +6,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   phoneNumber: string;
-  FCMTokn: string;
+  FCMToken: string;
   FCMId: string;
   role: Schema.Types.ObjectId;
   examCenter: Schema.Types.ObjectId;
@@ -25,7 +25,7 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   phoneNumber: { type: String, required: true },
-  FCMTokn: { type: String },
+  FCMToken: { type: String },
   FCMId: { type: String },
   role: { type: Schema.Types.ObjectId, ref: 'UserRole', required: true },
   examCenter: { type: Schema.Types.ObjectId, ref: 'ExamCenter', required: false },
