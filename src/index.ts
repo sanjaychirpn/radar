@@ -25,7 +25,7 @@ app.use(express.json({ limit: '50mb' }));
 const corsOptions = {
     // origin: ['http://localhost:3000', 'https://radar-sdk.vercel.app',`http://localhost:8081'`], // Replace with your frontend URL
     origin: true, // Allow all origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS','PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Enable cookies to be sent across domains
   };
