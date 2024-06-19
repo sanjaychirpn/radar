@@ -18,7 +18,9 @@ export const msg = {
     userUpdatedSuccess: 'User updated successfully.',
     userDeletedSuccess: 'User deleted successfully.',
     userFoundSuccess: 'User found successfully.',
-    errorInSaving: "Error is Saving"
+    errorInSaving: "Error is Saving",
+    supervisorsFoundSuccess: 'Supervisors found successfully.',
+    proctorsFoundSuccess: 'Proctors found successfully.',
   },
   token: {
     invalid: 'Invalid token in the request!',

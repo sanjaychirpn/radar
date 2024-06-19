@@ -6,7 +6,7 @@ import { msg } from '../helper/messages';
 
 @Service()
 export class UserController {
-  constructor(@Inject() private userService: UserService) {}
+  constructor(@Inject() private userService: UserService) { }
 
   save = async (req: Request, res: Response) => {
     try {
@@ -38,14 +38,14 @@ export class UserController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
-  getAllUsers= async (req: Request, res: Response) => {
+  getAllUsers = async (req: Request, res: Response) => {
     try {
       return await this.userService.getAllUsers(req, res);
     } catch (error) {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
-  
+
 
   deleteUser = async (req: Request, res: Response) => {
     try {
@@ -61,7 +61,7 @@ export class UserController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
-    updateUserFCM = async (req: Request, res: Response) => {
+  updateUserFCM = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { FCMToken, FCMId } = req.body;
@@ -74,5 +74,26 @@ export class UserController {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
     }
   };
- 
+  getAllProctorsByExamCenterId = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      
+      const proctors = await this.userService.getAllProctorsByExamCenterId(id);
+      console.log(proctors)
+      return responseStatus(res, 200, msg.user.proctorsFoundSuccess, proctors);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
+
+  getAllSupervisorsByExamCenterId = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const supervisors = await this.userService.getAllSupervisorsByExamCenterId(id);
+      return responseStatus(res, 200, msg.user.supervisorsFoundSuccess, supervisors);
+    } catch (error) {
+      return responseStatus(res, 500, msg.common.somethingWentWrong, error);
+    }
+  };
+
 }

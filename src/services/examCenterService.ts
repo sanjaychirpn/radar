@@ -75,11 +75,14 @@ export class ExamCenterService {
 
   assignUsersToExamCenter = async (req: Request, res: Response) => {
     try {
-      const { examCenterId, userIds } = req.body;
+      const { examCenterIds, userIds } = req.body;
+      console.log(examCenterIds, userIds)
       for (const userId of userIds) {
-        await this.userService.updateUserExamCenter(userId, examCenterId);
+        await this.userService.updateUserExamCenters(userId, examCenterIds);
       }
-      await this.checklistService.assignUsersToChecklists(examCenterId, userIds);
+      for (const examCenterId of examCenterIds) {
+        await this.checklistService.assignUsersToChecklists(examCenterId, userIds);
+      }
       return responseStatus(res, 200, msg.user.userUpdatedSuccess, null);
     } catch (error) {
       return responseStatus(res, 500, msg.common.somethingWentWrong, error);
@@ -98,4 +101,6 @@ export class ExamCenterService {
       return responseStatus(res, 500, msg.common.somethingWentWrong, 'An unknown error occurred');
     }
   };
+
+  
 }

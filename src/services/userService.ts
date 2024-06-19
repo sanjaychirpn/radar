@@ -76,9 +76,13 @@ export class UserService {
     const token = jwt.sign({ userId: user._id, role: user.role }, jwtSignIN.secret);
 
     let checklists: IChecklist[] = [];
-    if (user.examCenter) {
-      checklists = await this.checklistRepository.findByExamCenterAndUser(user.examCenter.toString(), user._id.toString());
+    if (user.examCenters && user.examCenters.length > 0) {
+      for (const examCenterId of user.examCenters) {
+        const centerChecklists = await this.checklistRepository.findByExamCenterAndUser(examCenterId.toString(), user._id.toString());
+        checklists = checklists.concat(centerChecklists);
+      }
     }
+    
     return { user, token, checklists };
   }
 
@@ -137,16 +141,35 @@ export class UserService {
     }
   };
 
-  async updateUserExamCenter(userId: string, examCenter: any): Promise<IUser | null> {
-    const updatedUser = await this.userRepository.updateById(userId, { examCenter: examCenter } as Partial<IUser>);
+  async updateUserExamCenters(userId: string, examCenterIds: string[]): Promise<IUser | null> {
+    const user = await this.userRepository.findById(userId);
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Ensure no duplicate exam center assignments
+    const uniqueExamCenterIds = Array.from(new Set([...user.examCenters, ...examCenterIds]));
+
+    const updatedUser = await this.userRepository.updateById(userId, { examCenters: uniqueExamCenterIds } as Partial<IUser>);
+
     // if (updatedUser) {
-    //   await this.emailService.sendAssignmentEmail(updatedUser.email, updatedUser.name, examCenter);
+    //   await this.emailService.sendAssignmentEmail(updatedUser.email, updatedUser.name, examCenterIds);
     // }
     return updatedUser;
   }
+
   updateFCMFields = async (id: string, fields: { FCMToken: string; FCMId: string }) => {
     const updatedUser = await this.userRepository.updateById(id, fields);
     return updatedUser;
   };
+
+  async getAllProctorsByExamCenterId(id: string): Promise<IUser[]> {
+    return this.userRepository.findUsersByExamCenterAndRole(id, 'proctor');
+  }
+
+  async getAllSupervisorsByExamCenterId(id: string): Promise<IUser[]> {
+    return this.userRepository.findUsersByExamCenterAndRole(id, 'supervisor');
+  }
 
 }

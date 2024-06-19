@@ -9,7 +9,7 @@ export interface IUser extends Document {
   FCMToken: string;
   FCMId: string;
   role: Schema.Types.ObjectId;
-  examCenter: Schema.Types.ObjectId;
+  examCenters: Schema.Types.ObjectId[];
   employeeType: Schema.Types.ObjectId;
   latitude: number;
   longitude: number;
@@ -17,7 +17,7 @@ export interface IUser extends Document {
   blocked: boolean;
   createdAt: Date;
   updatedAt: Date;
-  assignChecklists: (examCenterId: Schema.Types.ObjectId) => Promise<void>;
+  assignChecklists: (examCenterIds: Schema.Types.ObjectId[]) => Promise<void>;
 }
 
 const userSchema = new Schema({
@@ -28,7 +28,7 @@ const userSchema = new Schema({
   FCMToken: { type: String },
   FCMId: { type: String },
   role: { type: Schema.Types.ObjectId, ref: 'UserRole', required: true },
-  examCenter: { type: Schema.Types.ObjectId, ref: 'ExamCenter', required: false },
+  examCenters: [{ type: Schema.Types.ObjectId, ref: 'ExamCenter', required: false }],
   employeeType: { type: Schema.Types.ObjectId, ref: 'EmployeeType', required: false },
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
@@ -38,11 +38,13 @@ const userSchema = new Schema({
   timestamps: true
 });
 
-userSchema.methods.assignChecklists = async function (examCenterId) {
-  const checklists = await Checklist.find({ examCenter: examCenterId, user: null });
-  for (const checklist of checklists) {
-    checklist.user = this._id;
-    await checklist.save();
+userSchema.methods.assignChecklists = async function (examCenterIds) {
+  for (const examCenterId of examCenterIds) {
+    const checklists = await Checklist.find({ examCenter: examCenterId, user: null });
+    for (const checklist of checklists) {
+      checklist.user = this._id;
+      await checklist.save();
+    }
   }
 };
 
